@@ -10,18 +10,17 @@ export class TrackedEffect {
   private watchFn: Function;
   private callbackFn: Function | undefined;
 
-  // @ts-ignore
-  private context: EmberObject | undefined; // todo register a destructor for this context
+//  private context: EmberObject | undefined; // todo register a destructor for this context
 
   get id(): string {
     return this._id;
   }
 
-  constructor({ service, watchFn, callbackFn, context }: { service: TrackedEffectsService; watchFn: Function; callbackFn?: Function | undefined; context?: EmberObject | undefined; }) {
+  constructor({ service, watchFn, callbackFn/*, context */}: { service: TrackedEffectsService; watchFn: Function; callbackFn?: Function | undefined; context?: EmberObject | undefined; }) {
     this.service = service;
     this.watchFn = watchFn;
     this.callbackFn = callbackFn;
-    this.context = context;
+//    this.context = context;
     this._id = guidFor(this);
   }
 
@@ -47,8 +46,8 @@ export default class TrackedEffectsService extends Service {
     return this.loopId !== null;
   }
 
-  public addEffect(watchFn: Function, callbackFn?: Function | undefined, context?: EmberObject | undefined): TrackedEffect {
-    var effect = new TrackedEffect({ service: this, watchFn, callbackFn, context });
+  public addEffect(watchFn: Function, callbackFn?: Function | undefined/*, context?: EmberObject | undefined */): TrackedEffect {
+    var effect = new TrackedEffect({ service: this, watchFn, callbackFn/*, context*/ });
     this.effects.set(effect.id, effect);
     effect.run;
     this.startWatching();
