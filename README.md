@@ -50,7 +50,7 @@ export default class MyService extends service {
       () => { 
         // the tracked effects service will watch any tracked data
         // you read here and will run this function whenever it changes
-        browser.localStorage.setItem('my-data', this.data.name);
+        browser.localStorage.setItem('my-data', this.data?.name ?? '');
       }
     );
   }
@@ -78,7 +78,7 @@ export default class MyService extends service {
       }
       () => { 
         // anything you use in here will also be tracked
-        browser.localStorage.setItem('my-data', this.data.name);
+        browser.localStorage.setItem('my-data', this.data?.name ?? '');
       }
     );
   }
@@ -99,7 +99,7 @@ export default class MyService extends service {
     super(...arguments);
     this.effect = this.trackedEffects.addEffect(
       () => { 
-        browser.localStorage.setItem('my-data', this.data.name);
+        browser.localStorage.setItem('my-data', this.data?.name ?? '');
       }
     );
   }
