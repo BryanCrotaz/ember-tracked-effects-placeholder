@@ -104,7 +104,7 @@ export default class MyService extends service {
     );
   }
 
-  stopWatching() {
+  public stopWatching() {
     // stop() removes the effect from the watch system and cleans up
     this.effect.stop();
   }
