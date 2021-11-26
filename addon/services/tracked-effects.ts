@@ -16,7 +16,7 @@ export class TrackedEffect {
     return this._id;
   }
 
-  constructor({ service, watchFn, callbackFn/*, context */}: { service: TrackedEffectsService; watchFn: Function; callbackFn?: Function | undefined; context?: EmberObject | undefined; }) {
+  constructor({ service, watchFn, callbackFn/*, context */}: { service: TrackedEffectsService; watchFn: Function; callbackFn?: Function | undefined/*; context?: EmberObject | undefined; */}) {
     this.service = service;
     this.watchFn = watchFn;
     this.callbackFn = callbackFn;
