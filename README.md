@@ -1,7 +1,8 @@
 ember-tracked-effects-placeholder
 ==============================================================================
 
-[Short description of the addon.]
+Bodged implementation of tracked Effects prior to the availability of the proper
+implementation.
 
 
 Compatibility
