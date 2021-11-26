@@ -40,7 +40,7 @@ system clock for example.
 import TrackedEffectsService from 'ember-tracked-effects-placeholder';
 
 export default class MyService extends service {
-  @service trackedEffects;
+  @service trackedEffects: TrackedEffectsService;
 
   @tracked data: { name: string }; // an ember data model for example
 
@@ -62,7 +62,7 @@ export default class MyService extends service {
 import TrackedEffectsService from 'ember-tracked-effects-placeholder';
 
 export default class MyService extends service {
-  @service trackedEffects;
+  @service trackedEffects: TrackedEffectsService;
 
   @tracked data: { name: string }; // an ember data model for example
 
@@ -90,7 +90,7 @@ export default class MyService extends service {
 import TrackedEffectsService, { TrackedEffect } from 'ember-tracked-effects-placeholder';
 
 export default class MyService extends service {
-  @service trackedEffects;
+  @service trackedEffects: TrackedEffectsService;
 
   @tracked data: { name: string }; 
   private effect: TrackedEffect;
