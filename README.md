@@ -25,7 +25,7 @@ Usage
 ------------------------------------------------------------------------------
 
 If you want to update data in a template, or have UI interaction trigger backend
-behaviour (e.g. calling PLAY on a <video> element) then you can use glimmer
+behaviour (e.g. calling PLAY on a \<video\> element) then you can use glimmer
 tracking to update the template, or a modifier to call into UI elements.
 
 Tracked Effects allow you to call back end functions without needing to have
