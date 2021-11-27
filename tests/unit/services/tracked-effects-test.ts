@@ -141,5 +141,19 @@ module('Unit | Service | tracked-effects', function (hooks) {
     // that was the last effect so the service shouldn't be watching
     assert.notOk(service.isWatching);
   });
+
+  test('incorrect use of effect decorator asserts', async function (assert) {
+    assert.throws(() => {
+      // @ts-ignore
+      // eslint-disable-next-line
+      class BrokenConsumer extends Service {
+        @effect 
+        actOnChange() {
+        }
+      }
+    }, 
+    /.*BrokenConsumer.*actOnChange().*/, 
+    'error message contains class and method name');
+  })
 });
 
