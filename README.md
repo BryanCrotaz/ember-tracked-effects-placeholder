@@ -66,7 +66,6 @@ export default class MyService extends Service {
 
 ## Without a decorator
 ```ts
-// Simplest usage
 import TrackedEffectsService from 'ember-tracked-effects-placeholder';
 
 export default class MyService extends service {
