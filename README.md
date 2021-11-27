@@ -47,7 +47,9 @@ You can use this anywhere but if you're using it in a route or a
 controller it's likely that a modifier is a better solution.
 
 Note that you must use the syntax `myMethod = () => {}` and 
-not `myMethod() {}` due to the way decorators work
+not `myMethod() {}` due to the way decorators work. However
+if you get this wrong you'll get a useful error to help you
+fix it.
 
 ```ts
 export default class MyService extends Service {
