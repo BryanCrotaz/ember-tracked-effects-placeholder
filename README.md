@@ -37,7 +37,7 @@ Tracked Effects allow you to call back end functions without needing to have
 your code entangled with templates. For example you might have Ember Data
 models updated by a websocket or any other non-UI triggered data change, and
 need to call into browser APIs, or embedded platform APIs. In Electron you
-might want to makes changes to the file system based on data changes, or 
+might want to make changes to the file system based on data changes, or 
 system clock for example. 
 
 ## Usage with a decorator
