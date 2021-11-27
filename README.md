@@ -40,16 +40,6 @@ system clock for example.
 
 ## Usage with a decorator
 
-In your application route, import the TrackedEffects Service
-
-```ts
-import { inject as service } from '@ember/service';
-
-export default class ApplicationRoute extends Route {
-  @service tracked-effects;
-}
-```
-
 In a service, use the `@effect` decorator on a function property. 
 You can use this anywhere but if you're using it in a route or a 
 controller it's likely that a modifier is a better solution.

@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
+    "@ember/test-helpers": "^2.6.0",
     "@glimmer/component": "^1.0.2",
     "@glimmer/tracking": "^1.0.2",
     "@types/ember-qunit": "^3.4.15",
@@ -73,6 +74,7 @@
     "ember-source": "~3.22.0",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^2.14.0",
+    "ember-test-helpers": "^0.6.3",
     "ember-try": "^1.4.0",
     "eslint": "^7.11.0",
     "eslint-plugin-ember": "^9.3.0",
