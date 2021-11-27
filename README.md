@@ -38,9 +38,10 @@ need to call into browser APIs, or embedded platform APIs. In Electron you
 might want to makes changes to the file system based on data changes, or 
 system clock for example. 
 
-* Usage with a decorator
+## Usage with a decorator
 
-In your application route, use the TrackedEffects Service
+In your application route, import the TrackedEffects Service
+
 ```ts
 import { inject as service } from '@ember/service';
 
@@ -48,6 +49,10 @@ export default class ApplicationRoute extends Route {
   @service tracked-effects;
 }
 ```
+
+In a service, use the `@effect decorator`.
+Note that you must use the syntax `myMethod = () => {}` and 
+not `myMethod() {}` due to the way decorators work
 
 ```ts
 export default class MyService extends Service {
@@ -62,7 +67,7 @@ export default class MyService extends Service {
 }
 ```
 
-* Without a decorator
+## Without a decorator
 ```ts
 // Simplest usage
 import TrackedEffectsService from 'ember-tracked-effects-placeholder';
@@ -86,10 +91,14 @@ export default class MyService extends service {
 }
 ```
 
-* Effects with shorter lifetimes
+## Effects with shorter lifetimes
+
+Maybe you want to stop watching this data at some point.
+Note that you don't need to do this on destruction, that's automatic
+if you provide a context when calling `addEffect()`
+
 
 ```ts
-// Maybe you want to stop watching this data at some point
 import TrackedEffectsService, { TrackedEffect } from 'ember-tracked-effects-placeholder';
 
 export default class MyService extends service {
@@ -110,7 +119,6 @@ export default class MyService extends service {
 
   public stopWatching() {
     // stop() removes the effect from the watch system and cleans up
-    // you don't need to do this on destruction, that's automatic
     this.effect.stop();
   }
 }
