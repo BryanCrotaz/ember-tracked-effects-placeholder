@@ -57,6 +57,7 @@ export default class TrackedEffectsCore {
 
   private loop() {
     // last revision is the global tag change counter in glimmer tracking
+    // last revision is always -1 if the renderer isn't running (e.g. in a unit test)
     if (this.renderer._lastRevision == -1 || this.renderer._lastRevision !== this.lastRevision) {
       this.lastRevision = this.renderer._lastRevision;
       var effects = this.effects.values();
