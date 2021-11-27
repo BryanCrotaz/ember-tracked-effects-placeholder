@@ -93,7 +93,6 @@ Maybe you want to stop watching this data at some point.
 Note that you don't need to do this on destruction, that's automatic
 if you provide a context when calling `addEffect()`
 
-
 ```ts
 import TrackedEffectsService, { TrackedEffect } from 'ember-tracked-effects-placeholder';
 
