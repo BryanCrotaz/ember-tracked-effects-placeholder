@@ -4,6 +4,7 @@ ember-tracked-effects-placeholder
 Bodged implementation of tracked Effects prior to the availability of the proper
 implementation.
 
+Based on ideas from @NullVoxPopuli, @lifeart and @jelhan
 
 Compatibility
 ------------------------------------------------------------------------------
@@ -35,6 +36,31 @@ need to call into browser APIs, or embedded platform APIs. In Electron you
 might want to makes changes to the file system based on data changes, or 
 system clock for example. 
 
+* Usage with a decorator
+
+In your application route, use the TrackedEffects Service
+```ts
+import { inject as service } from '@ember/service';
+
+export default class ApplicationRoute extends Route {
+  @service tracked-effects;
+}
+```
+
+```ts
+export default class MyService extends Service {
+  @tracked data: { name: string }; // an ember data model for example
+
+  @effect
+  saveToLocalStorage = () => {
+    // the tracked effects service will watch any tracked data
+    // you read here and will run this function whenever it changes
+    browser.localStorage.setItem('my-data', this.data?.name ?? '');
+  }
+}
+```
+
+* Without a decorator
 ```ts
 // Simplest usage
 import TrackedEffectsService from 'ember-tracked-effects-placeholder';
@@ -51,39 +77,14 @@ export default class MyService extends service {
         // the tracked effects service will watch any tracked data
         // you read here and will run this function whenever it changes
         browser.localStorage.setItem('my-data', this.data?.name ?? '');
-      }
+      },
+      this // the service will stop the effect running if the context is destroyed
     );
   }
 }
 ```
 
-```ts
-// Advanced usage
-import TrackedEffectsService from 'ember-tracked-effects-placeholder';
-
-export default class MyService extends service {
-  @service trackedEffects: TrackedEffectsService;
-
-  @tracked data: { name: string }; // an ember data model for example
-
-  constructor() {
-    super(...arguments);
-    this.trackedEffects.addEffect(
-      () => { 
-        // the tracked effects service will watch any tracked data
-        // you read here and will run the callback function whenever it changes
-        this.data.name;
-        this.something.else; // we care about this one changing but don't use it
-                             // in the callback
-      }
-      () => { 
-        // anything you use in here will also be tracked
-        browser.localStorage.setItem('my-data', this.data?.name ?? '');
-      }
-    );
-  }
-}
-```
+* Effects with shorter lifetimes
 
 ```ts
 // Maybe you want to stop watching this data at some point
@@ -100,12 +101,14 @@ export default class MyService extends service {
     this.effect = this.trackedEffects.addEffect(
       () => { 
         browser.localStorage.setItem('my-data', this.data?.name ?? '');
-      }
+      },
+      this
     );
   }
 
   public stopWatching() {
     // stop() removes the effect from the watch system and cleans up
+    // you don't need to do this on destruction, that's automatic
     this.effect.stop();
   }
 }
