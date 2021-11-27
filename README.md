@@ -29,6 +29,8 @@ If you want to update data in a template, or have UI interaction trigger backend
 behaviour (e.g. calling PLAY on a \<video\> element) then you can use glimmer
 tracking to update the template, or a modifier to call into UI elements.
 
+Sometimes you need to call functions that are not related to templates.
+
 Tracked Effects allow you to call back end functions without needing to have
 your code entangled with templates. For example you might have Ember Data
 models updated by a websocket or any other non-UI triggered data change, and
