@@ -1,8 +1,10 @@
 ember-tracked-effects-placeholder
 ==============================================================================
 
-Bodged implementation of tracked Effects prior to the availability of the proper
-implementation.
+Bodged implementation of tracked Effects prior to the availability
+of the proper implementation.
+
+Uses an idle callback to run an efficient background check for changes.
 
 Based on ideas from @NullVoxPopuli, @lifeart and @jelhan
 
