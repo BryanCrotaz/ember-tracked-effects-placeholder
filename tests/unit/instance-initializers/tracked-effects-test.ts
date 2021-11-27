@@ -1,6 +1,6 @@
 import Application from '@ember/application';
 
-import { initialize } from 'dummy/instance-initializers/tracked-effects';
+import { initialize } from 'ember-tracked-effects-placeholder/instance-initializers/tracked-effects';
 import { module, test } from 'qunit';
 import { run } from '@ember/runloop';
 import EngineInstance from '@ember/engine/instance';
