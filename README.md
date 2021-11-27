@@ -73,17 +73,14 @@ export default class MyService extends service {
 
   @tracked data: { name: string }; // an ember data model for example
 
-  constructor() {
-    super(...arguments);
-    this.trackedEffects.addEffect(
-      () => { 
-        // the tracked effects service will watch any tracked data
-        // you read here and will run this function whenever it changes
-        browser.localStorage.setItem('my-data', this.data?.name ?? '');
-      },
-      this // the service will stop the effect running if the context is destroyed
-    );
-  }
+  effect = this.trackedEffects.addEffect(
+    () => { 
+      // the tracked effects service will watch any tracked data
+      // you read here and will run this function whenever it changes
+      browser.localStorage.setItem('my-data', this.data?.name ?? '');
+    },
+    this // the service will stop the effect running if the context is destroyed
+  );
 }
 ```
 
@@ -100,17 +97,13 @@ export default class MyService extends service {
   @service trackedEffects: TrackedEffectsService;
 
   @tracked data: { name: string }; 
-  private effect: TrackedEffect;
-
-  constructor() {
-    super(...arguments);
-    this.effect = this.trackedEffects.addEffect(
-      () => { 
-        browser.localStorage.setItem('my-data', this.data?.name ?? '');
-      },
-      this
-    );
-  }
+  
+  private effect = this.trackedEffects.addEffect(
+    () => { 
+      browser.localStorage.setItem('my-data', this.data?.name ?? '');
+    },
+    this
+  );
 
   public stopWatching() {
     // stop() removes the effect from the watch system and cleans up
