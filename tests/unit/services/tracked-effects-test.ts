@@ -18,9 +18,6 @@ class DataEffectConsumer extends Service {
   actOnChange = () => {
     this.result = this.value;
   }
-
-  @effect
-  myMethod() {}
 }
 
 async function delay(interval: number) {
