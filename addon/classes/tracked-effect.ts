@@ -7,8 +7,6 @@ export class TrackedEffect {
   private _id: string;
   private runFn: Function;
 
-  //  private context: EmberObject | undefined; // todo register a destructor for this context
-
   get id(): string {
     return this._id;
   }
