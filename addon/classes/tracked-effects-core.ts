@@ -10,6 +10,12 @@ export default class TrackedEffectsCore {
   private loopId: number | null = null;
 
   private effects: Map<string, TrackedEffect> = new Map<string, TrackedEffect>();
+  private renderer: any;
+  private lastRevision: any = null;
+
+  constructor (options: {renderer: any}) {
+    this.renderer = options.renderer;
+  }
 
   public get isWatching(): boolean {
     return this.loopId !== null;
@@ -50,9 +56,13 @@ export default class TrackedEffectsCore {
   }
 
   private loop() {
-    var effects = this.effects.values();
-    for (var effect of effects) {
-      effect.run; // @cached means only the ones with changes will do anything
+    // last revision is the global tag change counter in glimmer tracking
+    if (this.renderer._lastRevision == -1 || this.renderer._lastRevision !== this.lastRevision) {
+      this.lastRevision = this.renderer._lastRevision;
+      var effects = this.effects.values();
+      for (var effect of effects) {
+        effect.run; // @cached means only the ones with changes will do anything
+      }
     }
     // run again soon
     this.loopId = requestIdleCallback(

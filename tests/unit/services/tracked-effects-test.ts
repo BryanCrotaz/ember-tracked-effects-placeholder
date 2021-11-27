@@ -83,7 +83,6 @@ module('Unit | Service | tracked-effects', function (hooks) {
   });
 
   test('calls back on data update with decorator', async function (assert) {
-    let service = this.owner.lookup('service:tracked-effects');
     var data = new DataEffectConsumer();
     data.value = 'abc';
     await delay(100);
@@ -94,7 +93,6 @@ module('Unit | Service | tracked-effects', function (hooks) {
     await delay(100);
     await settled();
     assert.equal(data.result, 'def');
-    assert.ok(service.isWatching);
   });
 
   test('stopping an effect means callback is not called', async function (assert) {
