@@ -50,9 +50,9 @@ export default class ApplicationRoute extends Route {
 }
 ```
 
-In a service, use the `@effect decorator`. You can use this anywhere 
-but if you're using it in a route or a controller it's likely that
-a modifier is a better solution.
+In a service, use the `@effect` decorator on a function property. 
+You can use this anywhere but if you're using it in a route or a 
+controller it's likely that a modifier is a better solution.
 
 Note that you must use the syntax `myMethod = () => {}` and 
 not `myMethod() {}` due to the way decorators work
