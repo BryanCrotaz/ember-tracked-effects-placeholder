@@ -52,6 +52,8 @@ if you get this wrong you'll get a useful error to help you
 fix it.
 
 ```ts
+import Service from '@ember/service';
+
 export default class MyService extends Service {
   @tracked data: { name: string }; // an ember data model for example
 
@@ -66,9 +68,10 @@ export default class MyService extends Service {
 
 ## Without a decorator
 ```ts
+import Service from '@ember/service';
 import TrackedEffectsService from 'ember-tracked-effects-placeholder';
 
-export default class MyService extends service {
+export default class MyService extends Service {
   @service trackedEffects: TrackedEffectsService;
 
   @tracked data: { name: string }; // an ember data model for example
@@ -91,9 +94,10 @@ Note that you don't need to do this on destruction, that's automatic
 if you provide a context when calling `addEffect()`
 
 ```ts
+import Service from '@ember/service';
 import TrackedEffectsService, { TrackedEffect } from 'ember-tracked-effects-placeholder';
 
-export default class MyService extends service {
+export default class MyService extends Service {
   @service trackedEffects: TrackedEffectsService;
 
   @tracked data: { name: string }; 
