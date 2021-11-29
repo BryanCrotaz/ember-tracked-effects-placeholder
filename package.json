@@ -1,11 +1,14 @@
 {
   "name": "ember-tracked-effects-placeholder",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "github.com/BryanCrotaz/ember-tracked-effects-placeholder",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BryanCrotaz/ember-tracked-effects-placeholder"
+  },
   "license": "MIT",
   "author": "",
   "directories": {
