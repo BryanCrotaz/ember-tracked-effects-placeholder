@@ -1,7 +1,2 @@
-import effect from './classes/tracked-effect-decorator';
-import TrackedEffect from './classes/tracked-effect';
-
-export {
-  effect,
-  TrackedEffect
-}
+export { default as effect } from './classes/tracked-effect-decorator';
+export { default as TrackedEffect } from './classes/tracked-effect';
