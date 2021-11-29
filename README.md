@@ -69,7 +69,7 @@ export default class MyService extends Service {
 ## Without a decorator
 ```ts
 import Service from '@ember/service';
-import TrackedEffectsService from 'ember-tracked-effects-placeholder';
+import { TrackedEffectsService } from 'ember-tracked-effects-placeholder';
 
 export default class MyService extends Service {
   @service trackedEffects: TrackedEffectsService;
@@ -95,7 +95,7 @@ if you provide a context when calling `addEffect()`
 
 ```ts
 import Service from '@ember/service';
-import TrackedEffectsService, { TrackedEffect } from 'ember-tracked-effects-placeholder';
+import { TrackedEffectsService, TrackedEffect } from 'ember-tracked-effects-placeholder';
 
 export default class MyService extends Service {
   @service trackedEffects: TrackedEffectsService;
