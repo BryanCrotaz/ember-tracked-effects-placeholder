@@ -3,7 +3,7 @@ import { cached } from 'tracked-toolbox';
 import { registerDestructor } from '@ember/destroyable';
 import TrackedEffectsCore from './tracked-effects-core';
 
-export class TrackedEffect {
+export default class TrackedEffect {
   private _id: string;
   private runFn: Function;
 

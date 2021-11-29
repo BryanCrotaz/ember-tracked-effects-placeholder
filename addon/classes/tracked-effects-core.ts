@@ -1,5 +1,5 @@
 import { assert } from "@ember/debug";
-import { TrackedEffect } from "./tracked-effect";
+import TrackedEffect from "./tracked-effect";
 
 const maximumTimeBetweenWatchChecks = 100; // milliseconds
 
