@@ -4,9 +4,11 @@ ember-tracked-effects-placeholder
 Bodged implementation of tracked Effects prior to the availability
 of the proper implementation.
 
-Uses an idle callback to run an efficient background check for changes.
+When tracked data changes the renderer creates a backburner runloop.
+We hook into the start of every runloop to see if the renderer global
+tag version has changed. This uses private API.
 
-Based on ideas from @NullVoxPopuli, @lifeart and @jelhan
+Based on ideas from @NullVoxPopuli, @lifeart, @Courajs and @jelhan
 
 Compatibility
 ------------------------------------------------------------------------------

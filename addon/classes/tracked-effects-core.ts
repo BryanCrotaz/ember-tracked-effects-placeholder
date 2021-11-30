@@ -1,7 +1,7 @@
 import { assert } from "@ember/debug";
 import TrackedEffect from "./tracked-effect";
-
-const maximumTimeBetweenWatchChecks = 100; // milliseconds
+import { run, scheduleOnce } from "@ember/runloop";
+import { action } from "@ember/object";
 
 export default class TrackedEffectsCore {
 
@@ -44,31 +44,33 @@ export default class TrackedEffectsCore {
 
   private startWatching() {
     if (this.loopId == null) {
-      this.loop();
+      // @ts-ignore
+      run.backburner.on('begin', this.backburnerCallback);
+      this.loopId = 1;
     }
   }
 
   private stopWatching() {
     if (this.loopId !== null) {
-      cancelIdleCallback(this.loopId);
+      // @ts-ignore
+      run.backburner.off('begin', this.backburnerCallback);
       this.loopId = null;
     }
   }
 
-  private loop() {
-    // last revision is the global tag change counter in glimmer tracking
-    // last revision is always -1 if the renderer isn't running (e.g. in a unit test)
-    if (this.renderer._lastRevision == -1 || this.renderer._lastRevision !== this.lastRevision) {
+  @action
+  private backburnerCallback() {
+    scheduleOnce("actions", this, this.checkEffects);
+  }
+
+  private checkEffects() {
+    if (this.renderer._lastRevision === -1
+        || this.renderer._lastRevision !== this.lastRevision) {
       this.lastRevision = this.renderer._lastRevision;
       var effects = this.effects.values();
       for (var effect of effects) {
         effect.run; // @cached means only the ones with changes will do anything
       }
     }
-    // run again soon
-    this.loopId = requestIdleCallback(
-      () => { this.loop(); },
-      { timeout: maximumTimeBetweenWatchChecks }
-    );
   }
 }
