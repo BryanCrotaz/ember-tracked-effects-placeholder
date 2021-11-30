@@ -7,7 +7,7 @@ export default class TrackedEffectsCore {
 
   public static instance?: TrackedEffectsCore;
   
-  private loopId: number | null = null;
+  private watching: boolean = false;
 
   private effects: Map<string, TrackedEffect> = new Map<string, TrackedEffect>();
   private renderer: any;
@@ -18,7 +18,7 @@ export default class TrackedEffectsCore {
   }
 
   public get isWatching(): boolean {
-    return this.loopId !== null;
+    return this.watching;
   }
 
   public addEffect(runFn: Function, context?: object): TrackedEffect {
@@ -43,18 +43,18 @@ export default class TrackedEffectsCore {
   }
 
   private startWatching() {
-    if (this.loopId == null) {
+    if (!this.watching) {
       // @ts-ignore
       run.backburner.on('begin', this.backburnerCallback);
-      this.loopId = 1;
+      this.watching = true;
     }
   }
 
   private stopWatching() {
-    if (this.loopId !== null) {
+    if (this.watching) {
       // @ts-ignore
       run.backburner.off('begin', this.backburnerCallback);
-      this.loopId = null;
+      this.watching = false;
     }
   }
 
