@@ -11,10 +11,10 @@ class DataSource {
 
 class DataEffectConsumer extends Service {
   result: string = '';
-  
+
   @tracked value: string = '';
 
-  @effect 
+  @effect
   actOnChange = () => {
     this.result = this.value;
   }
@@ -40,6 +40,7 @@ module('Unit | Service | tracked-effects', function (hooks) {
     data.value = 'abc';
     var result = '';
     service.addEffect(
+      null,
       () => { result = data.value; }
     );
     await settled();
@@ -53,6 +54,7 @@ module('Unit | Service | tracked-effects', function (hooks) {
     data.value = 'abc';
     var result = '';
     service.addEffect(
+      null,
       () => { result = data.value; }
     );
     await settled();
@@ -71,6 +73,7 @@ module('Unit | Service | tracked-effects', function (hooks) {
     data.value = 'abc';
     var result = '';
     service.addEffect(
+      null,
       () => { result = data.value; }
     );
     await settled();
@@ -101,6 +104,7 @@ module('Unit | Service | tracked-effects', function (hooks) {
     data.value = 'abc';
     var result = '';
     var effect = service.addEffect(
+      null,
       () => { result = data.value; }
     );
     await settled();
@@ -134,7 +138,7 @@ module('Unit | Service | tracked-effects', function (hooks) {
 
     // destroy the consumer
     data.destroy();
-    
+
     await settled();
     // that was the last effect so the service shouldn't be watching
     assert.notOk(service.isWatching);
@@ -145,12 +149,12 @@ module('Unit | Service | tracked-effects', function (hooks) {
       // @ts-ignore
       // eslint-disable-next-line
       class BrokenConsumer extends Service {
-        @effect 
+        @effect
         actOnChange() {
         }
       }
-    }, 
-    /.*BrokenConsumer.*actOnChange().*/, 
+    },
+    /.*BrokenConsumer.*actOnChange().*/,
     'error message contains class and method name');
   })
 });

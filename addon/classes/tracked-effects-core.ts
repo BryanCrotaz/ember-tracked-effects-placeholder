@@ -6,7 +6,7 @@ import { action } from "@ember/object";
 export default class TrackedEffectsCore {
 
   public static instance?: TrackedEffectsCore;
-  
+
   private watching: boolean = false;
 
   private effects: Map<string, TrackedEffect> = new Map<string, TrackedEffect>();
@@ -21,7 +21,7 @@ export default class TrackedEffectsCore {
     return this.watching;
   }
 
-  public addEffect(runFn: Function, context?: object): TrackedEffect {
+  public addEffect(context: object, runFn: Function): TrackedEffect {
     assert('You cannot add an effect without providing a function', runFn);
     var effect = new TrackedEffect({ runFn, context });
     this.effects.set(effect.id, effect);
@@ -39,7 +39,7 @@ export default class TrackedEffectsCore {
 
   public stop() {
     this.effects.clear();
-    this.stopWatching(); 
+    this.stopWatching();
   }
 
   private startWatching() {

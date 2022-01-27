@@ -79,12 +79,12 @@ export default class MyService extends Service {
   @tracked data: { name: string }; // an ember data model for example
 
   effect = this.trackedEffects.addEffect(
+    this, // the service will stop the effect running if the context is destroyed
     () => { 
       // the tracked effects service will watch any tracked data
       // you read here and will run this function whenever it changes
       browser.localStorage.setItem('my-data', this.data?.name ?? '');
-    },
-    this // the service will stop the effect running if the context is destroyed
+    }
   );
 }
 ```
@@ -105,10 +105,10 @@ export default class MyService extends Service {
   @tracked data: { name: string }; 
   
   private effect = this.trackedEffects.addEffect(
+    this,
     () => { 
       browser.localStorage.setItem('my-data', this.data?.name ?? '');
-    },
-    this
+    }
   );
 
   public stopWatching() {

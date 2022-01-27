@@ -21,8 +21,8 @@ export default class TrackedEffects extends Service {
     return TrackedEffectsCore.instance?.isWatching ?? false;
   }
 
-  public addEffect(runFn: Function, context?: object): TrackedEffect | undefined {
-    return TrackedEffectsCore.instance?.addEffect(runFn, context);
+  public addEffect(context: object, runFn: Function): TrackedEffect | undefined {
+    return TrackedEffectsCore.instance?.addEffect(context, runFn);
   }
 }
 
