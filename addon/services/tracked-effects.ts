@@ -1,7 +1,7 @@
 import Service from '@ember/service';
 import TrackedEffectsCore from 'ember-tracked-effects-placeholder/classes/tracked-effects-core';
 import { registerDestructor } from '@ember/destroyable';
-import TrackedEffect from 'ember-tracked-effects-placeholder/classes/tracked-effect';
+import TrackedEffect, { EffectCallback, EffectDeps } from 'ember-tracked-effects-placeholder/classes/tracked-effect';
 import { getOwner } from '@ember/application';
 
 export default class TrackedEffects extends Service {
@@ -21,8 +21,12 @@ export default class TrackedEffects extends Service {
     return TrackedEffectsCore.instance?.isWatching ?? false;
   }
 
-  public addEffect(context: object, runFn: Function): TrackedEffect | undefined {
-    return TrackedEffectsCore.instance?.addEffect(context, runFn);
+  public addEffect<D extends any[]>(
+    context: object,
+    runFn: EffectCallback<D>,
+    deps?: EffectDeps<D>
+  ): TrackedEffect<D> | undefined {
+    return TrackedEffectsCore.instance?.addEffect(context, runFn, deps);
   }
 }
 
