@@ -25,7 +25,7 @@ export default class TrackedEffectsCore {
     assert('You cannot add an effect without providing a function', runFn);
     var effect = new TrackedEffect({ runFn, context, deps });
     this.effects.set(effect.id, effect);
-    effect.run;
+    this.backburnerCallback();
     this.startWatching();
     return effect;
   }

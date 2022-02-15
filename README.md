@@ -44,11 +44,13 @@ system clock for example.
 
 ## `useEffect` usage
 
-Sometimes you may need to make some changes after some tracked property is changed that is not controlled in the current component or the model. So instead of writing `{{did-insert}}` and `{{did-update @someProp}}` modifiers you can write an effect on the code level. Be careful with dependencies you have there, incorrect usage may lead to circular re-rendering.
+Sometimes you may need to make some changes after some tracked property is changed that is not controlled in the current component or the model. So instead of writing `{{did-insert}}` and `{{did-update @someProp}}` modifiers you can write an effect on the code level.
+
+The effect is called in the `actions` queue (https://guides.emberjs.com/release/applications/run-loop/#toc_how-does-the-run-loop-work-in-ember), so it's safe to update any tracked properties there. But be careful with dependencies you have there, incorrect usage may lead to circular re-rendering.
 
 `useEffect` is received 3 arguments:
 - **context** - required, destroyable object
-- **effect** - required, this effect is called whenever the observed tracked properties are updated.
+- **effect** - required, this effect is called on mount and whenever the observed tracked properties are updated.
 - **deps** - optional, this function should always return an array of tracked properties.
   
 `useEffect` can be **autotracked** or **controlled**
