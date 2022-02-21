@@ -28,6 +28,7 @@
     "postpack": "ember ts:clean"
   },
   "dependencies": {
+    "@types/ember__destroyable": "^4.0.0",
     "ember-cli-babel": "^7.22.1",
     "ember-cli-htmlbars": "^5.3.1",
     "ember-cli-typescript": "^4.2.1",
