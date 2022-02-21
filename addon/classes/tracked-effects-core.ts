@@ -1,12 +1,12 @@
 import { assert } from "@ember/debug";
-import TrackedEffect from "./tracked-effect";
+import TrackedEffect, { EffectDeps, EffectCallback } from './tracked-effect';
 import { run, scheduleOnce } from "@ember/runloop";
 import { action } from "@ember/object";
 
 export default class TrackedEffectsCore {
 
   public static instance?: TrackedEffectsCore;
-  
+
   private watching: boolean = false;
 
   private effects: Map<string, TrackedEffect> = new Map<string, TrackedEffect>();
@@ -21,9 +21,9 @@ export default class TrackedEffectsCore {
     return this.watching;
   }
 
-  public addEffect(runFn: Function, context?: object): TrackedEffect {
+  public addEffect<D extends any[]>(context: object, runFn: EffectCallback<D>, deps?: EffectDeps<D>): TrackedEffect<D> {
     assert('You cannot add an effect without providing a function', runFn);
-    var effect = new TrackedEffect({ runFn, context });
+    var effect = new TrackedEffect({ runFn, context, deps });
     this.effects.set(effect.id, effect);
     effect.run;
     this.startWatching();
@@ -39,7 +39,7 @@ export default class TrackedEffectsCore {
 
   public stop() {
     this.effects.clear();
-    this.stopWatching(); 
+    this.stopWatching();
   }
 
   private startWatching() {

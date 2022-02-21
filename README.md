@@ -42,6 +42,68 @@ need to call into browser APIs, or embedded platform APIs. In Electron you
 might want to make changes to the file system based on data changes, or 
 system clock for example. 
 
+## `useEffect` usage
+
+Sometimes you may need to make some changes after some tracked property is changed that is not controlled in the current component or the model. So instead of writing `{{did-insert}}` and `{{did-update @someProp}}` modifiers you can write an effect on the code level. Be careful with dependencies you have there, incorrect usage may lead to circular re-rendering.
+
+`useEffect` is received 3 arguments:
+- **context** - required, destroyable object
+- **effect** - required, this effect is called whenever the observed tracked properties are updated.
+- **deps** - optional, this function should always return an array of tracked properties.
+  
+`useEffect` can be **autotracked** or **controlled**
+1. To have a **controlled** effect you'll need to pass the `deps` function (`() => [trackedProp1, trackedProp2]`). If any of these properties is updated it'll trigger the new effect.
+   Note, the property can be updated, but the value can be the same (`this.prop = this.prop`), it'll trigger the effect anyway. To prevent this you can use the `dedupeTracked` decorator from https://github.com/tracked-tools/tracked-toolbox instead. 
+   
+   To have the effect on mount only, pass the function with empty array (`() => []`).
+   
+   Passing non-tracked properties to this array has no effect on updates.
+   
+   The deps array is also passed to the effect function as arguments. (`useEffect(this, (prop1, prop2) => {...}, () => [prop1, prop2]`)
+2. If you don't pass the deps argument, the effect will be **autotracked**, so it will trigger the function whenever any tracked property in the effect is updated.
+   
+   Be careful with this effect if you are using more than 1 tracked property inside the effect as it can be complicated to investigate what property triggers the update. Use controlled effect there instead.
+
+```ts
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { useEffect } from 'ember-tracked-effects-placeholder';
+
+interface Args {
+  id: string;
+}
+
+export default class MyComponent extends Component<Args> {
+  @tracked input = '';
+
+  constructor(owner, args) {
+    super(owner, args);
+    
+    // constructor style
+    useEffect(this, () => {
+      // some code
+    });
+  }
+  
+  /* property assignment style */
+
+  autotrackedEffect = useEffect(this, () => {
+    console.log('this is called whenever @id or this.input is updated');
+    console.log(this.args.id, this.input); // consume this.args.id and this.input
+  }); // no consumer
+
+  mountEffect = useEffect(this, () => {
+    console.log('this is called only on mount and is neved updated');
+    console.log(this.args.id, this.input); // it doesn't matter what you call here
+  }, () => []); // empty array consumer
+
+  idEffect = useEffect(this, () => {
+    console.log('this is called whenever @id is updated');
+    console.log('it is safe to use any other tracked properties', this.args.id, this.input);
+  }, () => [this.args.id]); // consume @id only
+}
+```
+
 ## Usage with a decorator
 
 In a service, use the `@effect` decorator on a function property. 
@@ -79,12 +141,12 @@ export default class MyService extends Service {
   @tracked data: { name: string }; // an ember data model for example
 
   effect = this.trackedEffects.addEffect(
+    this, // the service will stop the effect running if the context is destroyed
     () => { 
       // the tracked effects service will watch any tracked data
       // you read here and will run this function whenever it changes
       browser.localStorage.setItem('my-data', this.data?.name ?? '');
-    },
-    this // the service will stop the effect running if the context is destroyed
+    }
   );
 }
 ```
@@ -105,10 +167,10 @@ export default class MyService extends Service {
   @tracked data: { name: string }; 
   
   private effect = this.trackedEffects.addEffect(
+    this,
     () => { 
       browser.localStorage.setItem('my-data', this.data?.name ?? '');
-    },
-    this
+    }
   );
 
   public stopWatching() {

@@ -13,7 +13,7 @@ export default function effect(this: any, target: any, propertyKey: string, desc
     descriptor.initializer = function() {
       var fn = oldInit?.call(this);
       if (fn) {
-        TrackedEffectsCore.instance?.addEffect(fn, this);    
+        TrackedEffectsCore.instance?.addEffect(this, fn);
       }
       return fn;
     };
