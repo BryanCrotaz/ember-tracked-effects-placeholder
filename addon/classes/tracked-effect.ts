@@ -2,7 +2,6 @@ import { guidFor } from '@ember/object/internals';
 import { cached } from 'tracked-toolbox';
 import { registerDestructor } from '@ember/destroyable';
 import TrackedEffectsCore from './tracked-effects-core';
-import { schedule } from '@ember/runloop';
 
 export type TrackedEffectCallback = (...args: any[]) => any;
 export default class TrackedEffect {
@@ -30,7 +29,7 @@ export default class TrackedEffect {
   @cached get run(): boolean {
     // cached only runs this getter if the inputs have changed
     // result is irrelevant
-    schedule('actions', this.runFn);
+    this.runFn();
     return true;
   }
 }

@@ -1,6 +1,6 @@
 import { assert } from "@ember/debug";
 import TrackedEffect, { TrackedEffectCallback } from "./tracked-effect";
-import { run, scheduleOnce } from "@ember/runloop";
+import runloop, { scheduleOnce } from "@ember/runloop";
 import { action } from "@ember/object";
 
 interface BackburnerInterface {
@@ -21,7 +21,7 @@ export default class TrackedEffectsCore {
 
   constructor (options: {renderer: any}) {
     this.renderer = options.renderer;
-    this.backburner = (run as any).backburner || (run as any)._backburner;
+    this.backburner = (runloop as any).backburner || (runloop as any)._backburner;
     assert("Must get a backburner instance from the runloop", this.backburner);
   }
 
