@@ -9,8 +9,7 @@ export default class TrackedEffectsService extends Service {
     super(...arguments);
     TrackedEffectsCore.instance = new TrackedEffectsCore({
       // CAUTION: Private API
-      //@ts-ignore getOwner returns type unknown
-      renderer: getOwner(this).lookup('renderer:-dom')
+      renderer: (getOwner(this) as any).lookup('renderer:-dom')
     });
     registerDestructor(this, () => {
       TrackedEffectsCore.instance?.stop();
