@@ -5,5 +5,5 @@ export function initialize(appInstance: ApplicationInstance): void {
 }
 
 export default {
-  initialize
+  initialize,
 };
