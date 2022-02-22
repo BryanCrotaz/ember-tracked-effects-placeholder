@@ -3,6 +3,11 @@ import TrackedEffect, { TrackedEffectCallback } from "./tracked-effect";
 import { run, scheduleOnce } from "@ember/runloop";
 import { action } from "@ember/object";
 
+interface BackburnerInterface {
+  on(path: string, callback: () => void): any;
+  off(path: string, callback: () => void): any;
+}
+
 export default class TrackedEffectsCore {
 
   public static instance?: TrackedEffectsCore;
@@ -12,9 +17,12 @@ export default class TrackedEffectsCore {
   private effects: Map<string, TrackedEffect> = new Map<string, TrackedEffect>();
   private renderer: any;
   private lastRevision: any = null;
+  private backburner: BackburnerInterface;
 
   constructor (options: {renderer: any}) {
     this.renderer = options.renderer;
+    this.backburner = (run as any).backburner || (run as any)._backburner;
+    assert("Must get a backburner instance from the runloop", this.backburner);
   }
 
   public get isWatching(): boolean {
@@ -44,16 +52,14 @@ export default class TrackedEffectsCore {
 
   private startWatching() {
     if (!this.watching) {
-      // @ts-ignore
-      run.backburner.on('begin', this.backburnerCallback);
+      this.backburner.on('begin', this.backburnerCallback);
       this.watching = true;
     }
   }
 
   private stopWatching() {
     if (this.watching) {
-      // @ts-ignore
-      run.backburner.off('begin', this.backburnerCallback);
+      this.backburner.off('begin', this.backburnerCallback);
       this.watching = false;
     }
   }
@@ -69,7 +75,8 @@ export default class TrackedEffectsCore {
       this.lastRevision = this.renderer._lastRevision;
       var effects = this.effects.values();
       for (var effect of effects) {
-        effect.run; // @cached means only the ones with changes will do anything
+        // @ts-ignore
+        var dummy = effect.run; // @cached means only the ones with changes will do anything
       }
     }
   }
