@@ -3,13 +3,12 @@ import Application from '@ember/application';
 import { initialize } from 'ember-tracked-effects-placeholder/instance-initializers/tracked-effects';
 import { module, test } from 'qunit';
 import { run } from '@ember/runloop';
-import EngineInstance from '@ember/engine/instance';
-
-type TestContext = import('ember-test-helpers').TestContext;
+import { TestContext } from 'ember-test-helpers';
+import ApplicationInstance from '@ember/application/instance';
 
 interface InitializerTestContext extends TestContext {
   TestApplication: any;
-  instance: EngineInstance;
+  instance: ApplicationInstance;
 }
 
 module('Unit | Instance Initializer | tracked-effects', function(this: InitializerTestContext, hooks) {
@@ -20,7 +19,7 @@ module('Unit | Instance Initializer | tracked-effects', function(this: Initializ
       initialize
     });
     this.application = this.TestApplication.create({ autoboot: false });
-    this.instance = this.application.buildInstance();
+    this.instance = this.application.buildInstance() as ApplicationInstance;
   });
   hooks.afterEach(function(this: InitializerTestContext) {
     run(this.application, 'destroy');
