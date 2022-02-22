@@ -1,9 +1,10 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { tracked } from '@glimmer/tracking';
-import settled from '@ember/test-helpers/settled';
+import { settled } from '@ember/test-helpers';
 import Service from '@ember/service';
 import effect from 'ember-tracked-effects-placeholder/classes/tracked-effect-decorator';
+import TrackedEffectsService from 'ember-tracked-effects-placeholder/services/tracked-effects';
 
 class DataSource {
   @tracked value: string = '';
@@ -11,18 +12,20 @@ class DataSource {
 
 class DataEffectConsumer extends Service {
   result: string = '';
-  
+
   @tracked value: string = '';
 
-  @effect 
+  @effect
   actOnChange = () => {
     this.result = this.value;
-  }
+  };
 }
 
 async function delay(interval: number) {
-  await new Promise(resolve => {
-    setTimeout(() => { resolve(''); }, interval);
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('');
+    }, interval);
   });
 }
 
@@ -35,26 +38,26 @@ module('Unit | Service | tracked-effects', function (hooks) {
   });
 
   test('calls back on registration', async function (assert) {
-    let service = this.owner.lookup('service:tracked-effects');
+    let service = this.owner.lookup('service:tracked-effects') as TrackedEffectsService;
     var data = new DataSource();
     data.value = 'abc';
     var result = '';
-    service.addEffect(
-      () => { result = data.value; }
-    );
+    service.addEffect(() => {
+      result = data.value;
+    });
     await settled();
     assert.equal(result, 'abc');
     assert.ok(service.isWatching);
   });
 
   test('calls back on data update', async function (assert) {
-    let service = this.owner.lookup('service:tracked-effects');
+    let service = this.owner.lookup('service:tracked-effects') as TrackedEffectsService;
     var data = new DataSource();
     data.value = 'abc';
     var result = '';
-    service.addEffect(
-      () => { result = data.value; }
-    );
+    service.addEffect(() => {
+      result = data.value;
+    });
     await settled();
     assert.equal(result, 'abc');
     // change the data
@@ -66,13 +69,13 @@ module('Unit | Service | tracked-effects', function (hooks) {
   });
 
   test('calls back on data update', async function (assert) {
-    let service = this.owner.lookup('service:tracked-effects');
+    let service = this.owner.lookup('service:tracked-effects') as TrackedEffectsService;
     var data = new DataSource();
     data.value = 'abc';
     var result = '';
-    service.addEffect(
-      () => { result = data.value; }
-    );
+    service.addEffect(() => {
+      result = data.value;
+    });
     await settled();
     assert.equal(result, 'abc');
     // change the data
@@ -96,13 +99,13 @@ module('Unit | Service | tracked-effects', function (hooks) {
   });
 
   test('stopping an effect means callback is not called', async function (assert) {
-    let service = this.owner.lookup('service:tracked-effects');
+    let service = this.owner.lookup('service:tracked-effects') as TrackedEffectsService;
     var data = new DataSource();
     data.value = 'abc';
     var result = '';
-    var effect = service.addEffect(
-      () => { result = data.value; }
-    );
+    var effect = service.addEffect(() => {
+      result = data.value;
+    });
     await settled();
     assert.equal(result, 'abc');
     assert.ok(service.isWatching);
@@ -118,7 +121,7 @@ module('Unit | Service | tracked-effects', function (hooks) {
   });
 
   test('destroying target cleans up effect', async function (assert) {
-    let service = this.owner.lookup('service:tracked-effects');
+    let service = this.owner.lookup('service:tracked-effects') as TrackedEffectsService;
     var data = new DataEffectConsumer();
     data.value = 'abc';
     await delay(100);
@@ -134,24 +137,24 @@ module('Unit | Service | tracked-effects', function (hooks) {
 
     // destroy the consumer
     data.destroy();
-    
+
     await settled();
     // that was the last effect so the service shouldn't be watching
     assert.notOk(service.isWatching);
   });
 
   test('incorrect use of effect decorator asserts', async function (assert) {
-    assert.throws(() => {
-      // @ts-ignore
-      // eslint-disable-next-line
+    assert.throws(
+      () => {
+        // @ts-ignore
+        // eslint-disable-next-line
       class BrokenConsumer extends Service {
-        @effect 
-        actOnChange() {
+          @effect
+          actOnChange() {}
         }
-      }
-    }, 
-    /.*BrokenConsumer.*actOnChange().*/, 
-    'error message contains class and method name');
-  })
+      },
+      /.*BrokenConsumer.*actOnChange().*/,
+      'error message contains class and method name'
+    );
+  });
 });
-
