@@ -1,5 +1,5 @@
 import { assert } from "@ember/debug";
-import TrackedEffect from "./tracked-effect";
+import TrackedEffect, { TrackedEffectCallback } from "./tracked-effect";
 import { run, scheduleOnce } from "@ember/runloop";
 import { action } from "@ember/object";
 
@@ -21,7 +21,7 @@ export default class TrackedEffectsCore {
     return this.watching;
   }
 
-  public addEffect(runFn: Function, context?: object): TrackedEffect {
+  public addEffect(runFn: TrackedEffectCallback, context?: object): TrackedEffect {
     assert('You cannot add an effect without providing a function', runFn);
     var effect = new TrackedEffect({ runFn, context });
     this.effects.set(effect.id, effect);
