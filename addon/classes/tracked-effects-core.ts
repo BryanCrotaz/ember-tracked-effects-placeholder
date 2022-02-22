@@ -1,6 +1,6 @@
 import { assert } from "@ember/debug";
 import TrackedEffect, { TrackedEffectCallback } from "./tracked-effect";
-import runloop, { scheduleOnce } from "@ember/runloop";
+import * as runloop from "@ember/runloop";
 import { action } from "@ember/object";
 
 interface BackburnerInterface {
@@ -66,7 +66,7 @@ export default class TrackedEffectsCore {
 
   @action
   private backburnerCallback() {
-    scheduleOnce("actions", this, this.checkEffects);
+    runloop.scheduleOnce("actions", this, this.checkEffects);
   }
 
   private checkEffects() {
