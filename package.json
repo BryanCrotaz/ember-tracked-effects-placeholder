@@ -39,6 +39,7 @@
     "tracked-toolbox": "^1.2.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.5",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "^2.6.0",
     "@embroider/test-setup": "^0.37.0",
