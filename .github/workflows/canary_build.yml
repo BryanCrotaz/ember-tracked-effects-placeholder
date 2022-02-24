@@ -40,6 +40,7 @@ jobs:
     - name: create test results folder
       run: | 
         mkdir -p test-results
+        rm test-results/*
     - name: test
       run: |
         export PATH=$PATH:node_modules/.bin
