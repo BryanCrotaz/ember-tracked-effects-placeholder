@@ -44,6 +44,9 @@ jobs:
       run: |
         export PATH=$PATH:node_modules/.bin
         ember try:each
+    - name: list test results
+      run: | 
+        ls -al test-results/*
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action@v1
       if: always()
