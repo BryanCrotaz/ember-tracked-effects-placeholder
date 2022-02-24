@@ -5,7 +5,7 @@ const getChannelURL = require('ember-source-channel-url');
 
 module.exports = async function () {
   return {
-    command: 'ember test --silent --reporter xunit > test-results/results.xml',
+    command: 'ember test --silent --reporter xunit > test-results/$EMBER_TRY_CURRENT_SCENARIO.xml',
     useYarn: true,
     scenarios: [
       {
