@@ -3,6 +3,7 @@ import { setupTest } from 'ember-qunit';
 import { tracked } from '@glimmer/tracking';
 import { settled } from '@ember/test-helpers';
 import Service from '@ember/service';
+import EmberObject from '@ember/object';
 import effect from 'ember-tracked-effects-placeholder/classes/tracked-effect-decorator';
 import TrackedEffectsService from 'ember-tracked-effects-placeholder/services/tracked-effects';
 
@@ -10,7 +11,7 @@ class DataSource {
   @tracked value: string = '';
 }
 
-class DataEffectConsumer {
+class DataEffectConsumer extends EmberObject {
   result: string = '';
 
   @tracked value: string = '';
@@ -122,7 +123,7 @@ module('Unit | Service | tracked-effects', function (hooks) {
 
   test('destroying target cleans up effect', async function (assert) {
     let service = this.owner.lookup('service:tracked-effects') as TrackedEffectsService;
-    var data = new DataEffectConsumer();
+    var data = DataEffectConsumer.create();
     data.value = 'abc';
     await delay(100);
     await settled();
@@ -134,6 +135,8 @@ module('Unit | Service | tracked-effects', function (hooks) {
     await settled();
     assert.equal(data.result, 'def');
     assert.ok(service.isWatching);
+
+    data.destroy();
 
     await settled();
     // that was the last effect so the service shouldn't be watching
