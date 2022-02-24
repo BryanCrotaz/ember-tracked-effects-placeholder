@@ -1,0 +1,59 @@
+<testsuite name="Testem Tests" tests="44" skipped="0" failures="1" timestamp="Thu Feb 24 2022 22:03:12 GMT+0000 (Greenwich Mean Time)" time="2.066">
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-tracked-effects-placeholder" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-babel" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-htmlbars" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-typescript" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-destroyable-polyfill" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-compatibility-helpers" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: tracked-toolbox" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cache-primitive-polyfill" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: tracked-maps-and-sets" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: @glimmer/tracking" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-inject-live-reload" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: @ember/optional-features" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: @ember/test-helpers" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: @ember/test-waiters" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: @glimmer/component" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-auto-import" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: @embroider/macros" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-dependency-checker" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-dependency-lint" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: broccoli-asset-rev" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-terser" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-sri" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-source" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-typescript-blueprints" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-disable-prototype-extensions" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-export-application-global" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-load-initializers" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-maybe-import-regenerator" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-page-title" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-resolver" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-try" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: loader.js" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-qunit" time="0" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: ember-cli-test-loader" time="0.001" />
+	<testcase classname="Chrome 99.0" name="DependencyLint: qunit-dom" time="0" />
+	<testcase classname="Chrome 99.0" name="Unit | Service | tracked-effects: it exists" time="0.091" />
+	<testcase classname="Chrome 99.0" name="Unit | Service | tracked-effects: calls back on registration" time="0.033" />
+	<testcase classname="Chrome 99.0" name="Unit | Service | tracked-effects: calls back on data update" time="0.145" />
+	<testcase classname="Chrome 99.0" name="Unit | Service | tracked-effects: calls back on data update " time="0.142" />
+	<testcase classname="Chrome 99.0" name="Unit | Service | tracked-effects: calls back on data update with decorator" time="0.245" />
+	<testcase classname="Chrome 99.0" name="Unit | Service | tracked-effects: stopping an effect means callback is not called" time="0.137" />
+	<testcase classname="Chrome 99.0" name="Unit | Service | tracked-effects: destroying target cleans up effect" time="0.252">
+		<error message="failed, expected argument to be falsy, was: true">
+			<![CDATA[
+			Expected:
+			false
+			
+			Result:
+			true
+			
+			Source:
+			at Object.<anonymous> (http://localhost:7357/assets/tests.js:360:14)
+			]]>
+		</error>
+	</testcase>
+	<testcase classname="Chrome 99.0" name="Unit | Service | tracked-effects: incorrect use of effect decorator asserts" time="0.028" />
+	<testcase classname="Chrome 99.0" name="ember-qunit: Ember.onerror validation: Ember.onerror is functioning properly" time="0.001" />
+</testsuite>

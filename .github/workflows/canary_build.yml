@@ -37,10 +37,18 @@ jobs:
       run: | 
         export PATH=$PATH:node_modules/.bin
         yarn
+    - name: create test results folder
+      run: | 
+        mkdir test-results
     - name: test
       run: |
         export PATH=$PATH:node_modules/.bin
         ember try:each
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: test-results/**/*.xml
     # - name: release
     #   uses: justincy/github-action-npm-release@2.0.2
     #   id: release
