@@ -39,7 +39,7 @@ jobs:
         yarn
     - name: create test results folder
       run: | 
-        mkdir test-results
+        mkdir -p test-results
     - name: test
       run: |
         export PATH=$PATH:node_modules/.bin
