@@ -10,7 +10,7 @@ class DataSource {
   @tracked value: string = '';
 }
 
-class DataEffectConsumer extends Service {
+class DataEffectConsumer {
   result: string = '';
 
   @tracked value: string = '';
@@ -134,9 +134,6 @@ module('Unit | Service | tracked-effects', function (hooks) {
     await settled();
     assert.equal(data.result, 'def');
     assert.ok(service.isWatching);
-
-    // destroy the consumer
-    data.destroy();
 
     await settled();
     // that was the last effect so the service shouldn't be watching
