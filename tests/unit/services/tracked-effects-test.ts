@@ -87,7 +87,7 @@ module('Unit | Service | tracked-effects', function (hooks) {
   });
 
   test('calls back on data update with decorator', async function (assert) {
-    var data = new DataEffectConsumer();
+    var data = DataEffectConsumer.create();
     data.value = 'abc';
     await delay(100);
     await settled();
