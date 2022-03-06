@@ -1,6 +1,6 @@
 {
   "name": "ember-tracked-effects-placeholder",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Tracked Effects for Ember",
   "keywords": [
     "ember-addon"
