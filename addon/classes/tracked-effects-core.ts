@@ -1,7 +1,7 @@
 import { assert } from "@ember/debug";
 import TrackedEffect, { TrackedEffectCallback } from "./tracked-effect";
 // @ts-ignore
-import { _backburner, scheduleOnce } from "@ember/runloop";
+import { _backburner, scheduleOnce, next } from "@ember/runloop";
 import { action } from "@ember/object";
 
 interface BackburnerInterface {
@@ -34,7 +34,7 @@ export default class TrackedEffectsCore {
     assert('You cannot add an effect without providing a function', runFn);
     var effect = new TrackedEffect({ runFn, context });
     this.effects.set(effect.id, effect);
-    effect.run;
+    next(() => effect.run);
     this.startWatching();
     return effect;
   }
