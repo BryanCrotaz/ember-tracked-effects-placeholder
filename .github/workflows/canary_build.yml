@@ -54,15 +54,16 @@ jobs:
       if: always()
       with:
         files: test-results/**/*.xml
-    # - name: release
-    #   uses: justincy/github-action-npm-release@2.0.2
-    #   id: release
-    # - name: print release output
-    #   if: ${{ steps.release.outputs.released == 'true' }}
-    #   run: echo Release ID ${{ steps.release.outputs.release_id }}
-    # - name: publish package
-    #   if: ${{ steps.release.outputs.released == 'true' }}
-    #   env:
-    #     NPM_AUTH_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
-    #   run: |
-    #     yarn publish
+    - name: release
+      if: github.branch == "main"
+      uses: justincy/github-action-npm-release@2.0.2
+      id: release
+    - name: print release output
+      if: ${{ steps.release.outputs.released == 'true' }}
+      run: echo Release ID ${{ steps.release.outputs.release_id }}
+    - name: publish package
+      if: ${{ steps.release.outputs.released == 'true' }}
+      env:
+        NPM_AUTH_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
+      run: |
+        yarn publish
