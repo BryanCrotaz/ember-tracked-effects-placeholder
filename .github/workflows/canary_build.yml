@@ -55,7 +55,7 @@ jobs:
       with:
         files: test-results/**/*.xml
     - name: release
-      if: github.branch == 'main'
+      if: github.ref_name == 'main'
       uses: justincy/github-action-npm-release@2.0.2
       id: release
     - name: print release output
