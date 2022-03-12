@@ -1,6 +1,6 @@
 {
   "name": "ember-tracked-effects-placeholder",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Tracked Effects for Ember",
   "keywords": [
     "ember-addon"
@@ -31,8 +31,6 @@
     "postpack": "ember ts:clean"
   },
   "dependencies": {
-    "@types/ember-test-helpers": "^1.0.11",
-    "@types/ember__destroyable": "^4.0.0",
     "ember-cli-babel": "^7.26.3",
     "ember-cli-htmlbars": "^5.7.1",
     "ember-cli-typescript": "^5.0.0",
@@ -54,6 +52,7 @@
     "@types/ember__component": "^4.0.4",
     "@types/ember__controller": "^4.0.0",
     "@types/ember__debug": "^4.0.0",
+    "@types/ember__destroyable": "^4.0.0",
     "@types/ember__engine": "^4.0.0",
     "@types/ember__error": "^4.0.0",
     "@types/ember__object": "^4.0.1",
@@ -88,7 +87,6 @@
     "ember-source": "https://s3.amazonaws.com/builds.emberjs.com/beta/shas/cb9b164bcb408687066c336b9522aa322a67ceb2.tgz",
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^3.2.0",
-    "ember-test-helpers": "^0.6.3",
     "ember-try": "^2.0.0",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.1.0",
