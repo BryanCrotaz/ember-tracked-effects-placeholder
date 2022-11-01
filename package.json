@@ -31,6 +31,7 @@
     "postpack": "ember ts:clean"
   },
   "dependencies": {
+    "ember-auto-import": "^2.4.3",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-htmlbars": "^6.1.1",
     "ember-cli-typescript": "^5.0.0",
@@ -69,7 +70,6 @@
     "@types/qunit": "^2.11.3",
     "@types/rsvp": "^4.0.4",
     "broccoli-asset-rev": "^3.0.0",
-    "ember-auto-import": "^2.4.3",
     "ember-cli": "~4.8.0",
     "ember-cli-dependency-checker": "^3.3.1",
     "ember-cli-dependency-lint": "^2.0.1",
