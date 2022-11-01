@@ -1,5 +1,4 @@
-ember-tracked-effects-placeholder
-==============================================================================
+# ember-tracked-effects-placeholder
 
 Bodged implementation of tracked Effects prior to the availability
 of the proper implementation.
@@ -10,24 +9,21 @@ tag version has changed. This uses private API.
 
 Based on ideas from @NullVoxPopuli, @lifeart, @Courajs and @jelhan
 
-Compatibility
-------------------------------------------------------------------------------
+## Compatibility
 
-* Ember.js v3.16 or above
-* Ember CLI v2.13 or above
-* Node.js v10 or above
+* Ember.js v3.28 or above
+* Ember CLI v3.28 or above
+* Node.js v14 or above
 
 
-Installation
-------------------------------------------------------------------------------
+## Installation
 
 ```
 ember install ember-tracked-effects-placeholder
 ```
 
 
-Usage
-------------------------------------------------------------------------------
+## Usage
 
 If you want to update data in a template, or have UI interaction trigger backend
 behaviour (e.g. calling `play()` on a `<video\>` element) then you can use glimmer
@@ -119,13 +115,11 @@ export default class MyService extends Service {
 ```
 
 
-Contributing
-------------------------------------------------------------------------------
+## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
 
 
-License
-------------------------------------------------------------------------------
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
